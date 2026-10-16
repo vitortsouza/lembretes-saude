@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """
 Lembretes de saúde para Windows 11 (sem dependências externas).
@@ -6,6 +5,7 @@ Lembretes de saúde para Windows 11 (sem dependências externas).
 - A cada 20 minutos: descanso dos olhos + som.
 - A cada 60 minutos: beber água + som.
 - A cada 90 minutos: levantar e se alongar + som.
+- Atrasos iniciais para distribuir as notificações.
 
 Requer Python 3 e recursos nativos do Windows.
 
@@ -27,6 +27,11 @@ MODO_TESTE = "--teste" in sys.argv
 INTERVALO_OLHOS = 5 if MODO_TESTE else 20 * 60
 INTERVALO_AGUA = 12 if MODO_TESTE else 60 * 60
 INTERVALO_ALONGAMENTO = 18 if MODO_TESTE else 90 * 60
+
+# Atrasos iniciais para distribuir as notificações
+ATRASO_OLHOS = INTERVALO_OLHOS
+ATRASO_AGUA = 7 if MODO_TESTE else 25 * 60
+ATRASO_ALONGAMENTO = 11 if MODO_TESTE else 35 * 60
 
 # Sons diferentes (frequência em Hz, duração em ms)
 SOM_OLHOS = [(1000, 200), (1400, 300)]
@@ -78,7 +83,6 @@ def em_tela_cheia():
 def notificar(titulo, mensagem):
     """Mostra uma notificação do Windows via PowerShell."""
 
-    # Escapa caracteres especiais para inserir o texto no XML.
     def escapar_xml(texto):
         return (
             texto.replace("&", "&amp;")
@@ -141,42 +145,53 @@ def avisar(titulo, mensagem, notas):
         notificar(titulo, mensagem)
 
 
-def loop_olhos():
+def loop_lembrete(intervalo, atraso_inicial, titulo, mensagem, notas):
+    """Aguarda o atraso inicial e repete o lembrete no intervalo definido."""
+    time.sleep(atraso_inicial)
+
     while True:
-        time.sleep(INTERVALO_OLHOS)
-        avisar(
-            "Hora de descansar os olhos! 👀",
-            "Olhe para longe por 20 segundos e pisque os olhos.",
-            SOM_OLHOS,
-        )
+        avisar(titulo, mensagem, notas)
+        time.sleep(intervalo)
+
+
+def loop_olhos():
+    loop_lembrete(
+        INTERVALO_OLHOS,
+        ATRASO_OLHOS,
+        "Hora de descansar os olhos! 👀",
+        "Olhe para longe por 20 segundos e pisque os olhos.",
+        SOM_OLHOS,
+    )
 
 
 def loop_agua():
-    while True:
-        time.sleep(INTERVALO_AGUA)
-        avisar(
-            "Beba água! 💧",
-            "Lembre-se de beber um copo de água.",
-            SOM_AGUA,
-        )
+    loop_lembrete(
+        INTERVALO_AGUA,
+        ATRASO_AGUA,
+        "Beba água! 💧",
+        "Lembre-se de beber um copo de água.",
+        SOM_AGUA,
+    )
 
 
 def loop_alongamento():
-    while True:
-        time.sleep(INTERVALO_ALONGAMENTO)
-        avisar(
-            "Hora de se movimentar! 🧍",
-            "Levante-se um pouco, caminhe e faça alguns alongamentos.",
-            SOM_ALONGAMENTO,
-        )
+    loop_lembrete(
+        INTERVALO_ALONGAMENTO,
+        ATRASO_ALONGAMENTO,
+        "Hora de se movimentar! 🧍",
+        "Levante-se um pouco, caminhe e faça alguns alongamentos.",
+        SOM_ALONGAMENTO,
+    )
 
 
 def formato_intervalo(segundos):
     if segundos >= 3600:
         horas = segundos // 3600
         minutos = (segundos % 3600) // 60
+
         if minutos:
             return f"{horas}h{minutos:02d}min"
+
         return f"{horas}h"
 
     return f"{segundos // 60} min" if segundos >= 60 else f"{segundos} s"
@@ -187,6 +202,9 @@ def main():
         print(
             "MODO TESTE: olhos a cada 5s, "
             "água a cada 12s e alongamento a cada 18s."
+        )
+        print(
+            "Atrasos iniciais: olhos 5s, água 7s, alongamento 11s."
         )
 
     print("Lembretes de saúde iniciados. Ctrl+C para sair.")
