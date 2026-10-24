@@ -29,3 +29,12 @@ $RECYCLE.BIN/
 
 # Logs
 *.log
+
+# Configuração e histórico pessoais
+config.json
+historico.jsonl
+
+# PyInstaller
+build/
+dist/
+*.spec

@@ -1,0 +1,32 @@
+name: Gerar executáveis
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gerar executáveis
+        shell: cmd
+        run: build_exe.bat
+
+      - name: Enviar artefatos
+        uses: actions/upload-artifact@v4
+        with:
+          name: lembretes-saude-windows
+          path: |
+            dist/LembretesSaude.exe
+            dist/LembretesSaude-cli.exe
