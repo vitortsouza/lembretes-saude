@@ -8,13 +8,16 @@ import unittest
 from contextlib import redirect_stdout
 from datetime import datetime
 from pathlib import Path
+from unittest import mock
 
 from lembretes import (
     ACOES_TOAST,
     DIAS_SEMANA,
     Agendador,
+    EstadoSistema,
     Historico,
     Lembrete,
+    MOTIVO_BLOQUEIO,
     aplicar_cli,
     aplicar_modo_teste,
     caminho_historico,
@@ -24,8 +27,10 @@ from lembretes import (
     criar_lembretes,
     criar_parser,
     em_horario_silencio,
+    entregar_lembretes,
     escapar_xml,
     formato_intervalo,
+    garantir_instancia_unica,
     iniciar_agenda,
     mesclar_config,
     montar_script_toast,
@@ -46,6 +51,7 @@ def criar_lembrete(**alteracoes) -> Lembrete:
         "atraso_inicial": 10,
         "proximo": 10,
         "pendente": False,
+        "chave": "olhos",
     }
     dados.update(alteracoes)
     return Lembrete(**dados)
@@ -166,6 +172,20 @@ class TestProcessarTick(unittest.TestCase):
         self.assertEqual(entregas, [(lembrete, True), (lembrete, False)])
         self.assertEqual(lembrete.proximo, 130)
 
+    def test_adia_com_motivo_de_bloqueio(self):
+        lembrete = criar_lembrete()
+
+        adiados = processar_tick(
+            [lembrete],
+            10,
+            True,
+            lambda item, atrasado: None,
+            MOTIVO_BLOQUEIO,
+        )
+
+        self.assertEqual(adiados, [lembrete])
+        self.assertEqual(lembrete.motivo, MOTIVO_BLOQUEIO)
+
     def test_iniciar_agenda_define_atraso_e_limpa_pendencia(self):
         lembrete = criar_lembrete(pendente=True)
 
@@ -186,6 +206,7 @@ class TestAgendador(unittest.TestCase):
             [lembrete],
             relogio=lambda: estado["agora"],
             obter_tela_cheia=lambda: False,
+            obter_bloqueado=lambda: False,
             entregar=lambda item, atrasado: entregas.append(
                 (item, atrasado)
             ),
@@ -266,6 +287,105 @@ class TestAgendador(unittest.TestCase):
 
         agendador.sonecar(60)
         self.assertIn("soneca até", agendador.texto_status())
+
+
+    def test_desloca_agenda_apos_salto_longo(self):
+        agendador, lembrete, estado, entregas = self.criar_agendador()
+
+        estado["agora"] = 1000.0
+        agendador.tick()
+
+        self.assertEqual(entregas, [])
+        self.assertAlmostEqual(lembrete.proximo, 1009.0, delta=2)
+
+    def test_bloqueio_por_evento_dispensa_polling(self):
+        consultas = []
+
+        def consultar():
+            consultas.append(True)
+            return False
+
+        lembrete = criar_lembrete()
+        agendador = Agendador(
+            [lembrete],
+            relogio=lambda: 10.0,
+            obter_tela_cheia=lambda: False,
+            obter_bloqueado=consultar,
+            entregar=lambda item, atrasado: None,
+            registrar=lambda mensagem: None,
+        )
+        agendador.definir_bloqueio(True)
+        lembrete.proximo = 10
+
+        adiados = agendador.tick()
+
+        self.assertEqual(adiados, [lembrete])
+        self.assertEqual(consultas, [])
+        self.assertTrue(lembrete.pendente)
+
+    def test_recarregar_aplica_novos_intervalos(self):
+        agendador, lembrete, estado, entregas = self.criar_agendador()
+        config = config_padrao()
+        config["lembretes"]["agua"]["ativo"] = False
+        config["lembretes"]["alongamento"]["ativo"] = False
+        config["lembretes"]["olhos"]["intervalo_segundos"] = 42
+
+        agendador.recarregar(config)
+
+        self.assertEqual(lembrete.intervalo, 42)
+        self.assertEqual(len(agendador.lembretes), 1)
+
+    def test_restaura_pausa_do_estado_salvo(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            estado = EstadoSistema(Path(pasta) / "estado.json")
+            estado.salvar(pausado=True, soneca_fim=None)
+            lembrete = criar_lembrete()
+
+            agendador = Agendador(
+                [lembrete],
+                relogio=lambda: 10.0,
+                obter_tela_cheia=lambda: False,
+                obter_bloqueado=lambda: False,
+                entregar=lambda item, atrasado: None,
+                registrar=lambda mensagem: None,
+                estado=estado,
+            )
+
+        self.assertTrue(agendador.pausado)
+        self.assertIn("pausado", agendador.texto_status())
+
+
+class TestEntregarLembretes(unittest.TestCase):
+    def test_agrupa_varios_lembretes_em_uma_notificacao(self):
+        olhos = criar_lembrete(nome="Olhos", titulo="Olhos")
+        agua = criar_lembrete(
+            nome="Água", titulo="Água", motivo="com o computador bloqueado"
+        )
+
+        with mock.patch("lembretes.tocar_som") as som, mock.patch(
+            "lembretes.notificar", return_value=True
+        ) as notificar:
+            entregar_lembretes(
+                [(olhos, False), (agua, True)], som_ativo=True
+            )
+
+        self.assertEqual(som.call_count, 2)
+        self.assertEqual(notificar.call_count, 1)
+        titulo, mensagem = notificar.call_args.args[:2]
+        self.assertIn("Lembretes", titulo)
+        self.assertIn("Olhos", mensagem)
+        self.assertIn("Água", mensagem)
+        self.assertIn("bloqueado", mensagem)
+
+    def test_entrega_unica_mantem_titulo_original(self):
+        olhos = criar_lembrete(nome="Olhos", titulo="Olhos")
+
+        with mock.patch("lembretes.tocar_som"), mock.patch(
+            "lembretes.notificar", return_value=True
+        ) as notificar:
+            entregar_lembretes([(olhos, False)], som_ativo=False)
+
+        self.assertEqual(notificar.call_args.args[0], "Olhos")
 
 
 class TestHorarioSilencio(unittest.TestCase):
@@ -350,6 +470,36 @@ class TestHorarioSilencio(unittest.TestCase):
             )
         )
 
+    def test_adia_enquanto_sessao_bloqueada_e_entrega_ao_desbloquear(self):
+        lembrete = criar_lembrete()
+        estado = {"agora": 0.0, "bloqueado": False}
+        entregas = []
+
+        agendador = Agendador(
+            [lembrete],
+            relogio=lambda: estado["agora"],
+            obter_tela_cheia=lambda: False,
+            obter_bloqueado=lambda: estado["bloqueado"],
+            entregar=lambda item, atrasado: entregas.append(
+                (item, atrasado)
+            ),
+            registrar=lambda mensagem: None,
+        )
+
+        estado["agora"] = 10
+        estado["bloqueado"] = True
+        agendador.tick()
+
+        self.assertEqual(entregas, [])
+        self.assertTrue(lembrete.pendente)
+        self.assertEqual(lembrete.motivo, MOTIVO_BLOQUEIO)
+
+        estado["agora"] = 20
+        estado["bloqueado"] = False
+        agendador.tick()
+
+        self.assertEqual(entregas, [(lembrete, True)])
+
     def test_silencio_desloca_a_agenda(self):
         lembrete = criar_lembrete()
         estado = {"agora": 0.0, "silencio": False}
@@ -359,6 +509,7 @@ class TestHorarioSilencio(unittest.TestCase):
             [lembrete],
             relogio=lambda: estado["agora"],
             obter_tela_cheia=lambda: False,
+            obter_bloqueado=lambda: False,
             entregar=lambda item, atrasado: entregas.append(
                 (item, atrasado)
             ),
@@ -397,6 +548,7 @@ class TestHorarioSilencio(unittest.TestCase):
             [lembrete],
             relogio=lambda: estado["agora"],
             obter_tela_cheia=lambda: False,
+            obter_bloqueado=lambda: False,
             entregar=lambda item, atrasado: entregas.append(
                 (item, atrasado)
             ),
@@ -528,6 +680,7 @@ class TestHistorico(unittest.TestCase):
                 [lembrete],
                 relogio=lambda: estado["agora"],
                 obter_tela_cheia=lambda: False,
+                obter_bloqueado=lambda: False,
                 entregar=lambda item, atrasado: entregas.append(
                     (item, atrasado)
                 ),
@@ -572,8 +725,36 @@ class TestHistorico(unittest.TestCase):
         self.assertEqual(registros[5]["nome"], "Teste")
         self.assertEqual(entregas, [(lembrete, False)])
 
+    def test_rotacao_do_historico_por_tamanho(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            caminho = Path(pasta) / "historico.jsonl"
+            historico = Historico(caminho, max_bytes=200, backups=1)
+
+            for indice in range(20):
+                historico.registrar("evento", indice=indice)
+
+            self.assertTrue(caminho.is_file())
+            self.assertTrue(Path(f"{caminho}.1").is_file())
+            self.assertLess(caminho.stat().st_size, 400)
+
+    def test_estado_salva_e_carrega(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            estado = EstadoSistema(Path(pasta) / "estado.json")
+
+            self.assertTrue(
+                estado.salvar(pausado=True, soneca_fim=None)
+            )
+            dados = estado.carregar()
+
+        self.assertTrue(dados["pausado"])
+        self.assertIsNone(dados["soneca_fim"])
+        self.assertIn("quando", dados)
+
 
 class TestConfiguracao(unittest.TestCase):
+    def test_instancia_unica_nao_bloqueia_fora_do_windows(self):
+        self.assertTrue(garantir_instancia_unica())
+
     def test_config_padrao_e_valida(self):
         config = config_padrao()
         validar_config(config)
