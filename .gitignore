@@ -33,6 +33,9 @@ $RECYCLE.BIN/
 # Configuração e histórico pessoais
 config.json
 historico.jsonl
+historico.jsonl.*
+estado.json
+estado.json.tmp
 
 # PyInstaller
 build/

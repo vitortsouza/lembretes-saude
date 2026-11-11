@@ -12,7 +12,13 @@
   },
   "historico": {
     "ativo": true,
-    "arquivo": "historico.jsonl"
+    "arquivo": "historico.jsonl",
+    "max_bytes": 1000000,
+    "backups": 2
+  },
+  "estado": {
+    "ativo": true,
+    "arquivo": "estado.json"
   },
   "lembretes": {
     "olhos": {

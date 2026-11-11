@@ -1,0 +1,730 @@
+{"quando": "2026-10-24T11:48:58", "evento": "pausa_iniciada"}
+{"quando": "2026-10-24T11:49:08", "evento": "pausa_encerrada", "duracao_segundos": 9.4}
+{"quando": "2026-10-24T11:51:41", "evento": "pausa_iniciada"}
+{"quando": "2026-10-24T11:51:47", "evento": "pausa_encerrada", "duracao_segundos": 6.78}
+{"quando": "2026-10-24T11:51:47", "evento": "soneca_iniciada", "duracao_segundos": 900}
+{"quando": "2026-10-24T11:51:53", "evento": "soneca_cancelada", "duracao_segundos": 6.08}
+{"quando": "2026-10-24T11:51:56", "evento": "pausa_iniciada"}
+{"quando": "2026-10-24T11:51:59", "evento": "pausa_encerrada", "duracao_segundos": 2.19}
+{"quando": "2026-10-24T11:52:03", "evento": "soneca_iniciada", "duracao_segundos": 900}
+{"quando": "2026-10-24T12:07:04", "evento": "soneca_encerrada", "duracao_segundos": 900.74}
+{"quando": "2026-10-24T12:26:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T12:27:08", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T12:31:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-24T12:31:43", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-24T12:41:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-24T12:46:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T12:46:51", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T13:06:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T13:26:46", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T13:27:26", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T13:31:33", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-24T13:31:51", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-24T13:46:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T13:48:42", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T14:06:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T14:09:31", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T14:11:32", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-24T14:26:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T14:31:33", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-24T14:32:23", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-24T14:32:23", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-24T14:46:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T14:47:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T15:08:16", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-24T15:26:49", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-24T15:26:55", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-24T15:32:14", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-24T15:32:27", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-24T15:32:27", "evento": "pausa_iniciada"}
+{"quando": "2026-10-25T12:10:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T12:13:09", "evento": "soneca_iniciada", "duracao_segundos": 900}
+{"quando": "2026-10-25T12:28:09", "evento": "soneca_encerrada", "duracao_segundos": 900.52}
+{"quando": "2026-10-25T12:30:45", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T12:31:26", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-25T12:40:45", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-25T12:40:52", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-25T12:45:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T12:46:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T13:05:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T13:08:56", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T13:25:46", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T13:27:10", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T13:30:46", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T13:30:51", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-25T13:45:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T13:46:46", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T14:05:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T14:05:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T14:10:45", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-25T14:11:31", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-25T14:25:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T14:26:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T14:30:47", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T14:30:50", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-25T14:45:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T14:46:36", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T15:05:49", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T15:06:03", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T15:25:50", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T15:27:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T15:30:47", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T15:31:10", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-25T15:40:46", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-25T15:41:09", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-25T15:45:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T15:46:49", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T16:05:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T16:06:49", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T16:25:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T16:30:48", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T16:31:19", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-25T16:45:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T16:46:00", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T17:05:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T17:06:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T17:10:46", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-25T17:11:11", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-25T17:25:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T17:26:55", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-25T17:30:48", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-25T17:45:54", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-25T17:46:59", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T11:46:07", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T11:46:08", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-26T11:46:10", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-10-26T11:46:12", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-26T12:46:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T12:46:04", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-26T13:11:10", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T13:11:12", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-26T13:27:14", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T13:27:47", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T13:31:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T13:51:09", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T13:55:59", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T14:11:10", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T14:12:22", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T14:27:15", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T14:27:48", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T14:31:11", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T14:32:39", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T14:41:09", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-26T14:41:43", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-26T14:51:11", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T14:57:37", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T15:11:12", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T15:11:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T15:27:15", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T15:28:29", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T15:31:13", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T15:31:21", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T15:51:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T15:51:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T16:11:10", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-26T16:11:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T16:11:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T16:11:17", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T16:27:16", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T16:27:27", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T16:31:15", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T16:32:27", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T16:51:16", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T16:51:27", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T17:11:17", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T17:11:36", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T17:27:17", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T17:31:17", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T17:41:11", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-26T17:42:01", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-26T17:51:18", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T18:18:30", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T18:18:42", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T18:27:18", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T18:27:29", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T18:58:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T18:59:00", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T19:11:13", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-26T19:18:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T19:19:06", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T19:27:18", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-26T19:27:25", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-26T19:38:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-26T19:38:58", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T20:09:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T20:20:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T20:21:14", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-26T20:53:00", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-26T20:53:03", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-26T20:53:06", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-10-26T20:53:09", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-26T20:53:13", "evento": "pausa_iniciada"}
+{"quando": "2026-10-27T10:03:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T10:04:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T10:08:45", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-27T10:18:44", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-27T10:19:01", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-27T10:23:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T10:24:23", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T10:43:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T10:43:54", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T11:03:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T11:04:33", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T11:08:45", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-27T11:09:21", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-27T11:23:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T11:25:20", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T11:43:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T11:43:55", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T11:48:44", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-27T11:49:08", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-27T12:03:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T12:04:02", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T12:08:46", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-27T12:09:39", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-27T12:23:46", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T13:02:37", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T13:03:20", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T13:07:37", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-27T13:08:06", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-27T13:17:37", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-27T13:17:47", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-27T13:22:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T13:42:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T13:43:03", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T14:02:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T14:03:01", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T14:07:37", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-27T14:08:24", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-27T14:22:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T14:23:02", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T14:42:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-27T14:43:54", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-27T14:47:37", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-27T14:47:56", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-27T15:24:23", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-27T15:24:24", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-27T15:24:28", "evento": "soneca_iniciada", "duracao_segundos": 900}
+{"quando": "2026-10-27T15:24:32", "evento": "soneca_cancelada", "duracao_segundos": 3.88}
+{"quando": "2026-10-27T15:24:34", "evento": "pausa_iniciada"}
+{"quando": "2026-10-28T11:22:37", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-28T11:24:25", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-28T11:27:37", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-28T11:28:26", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-28T11:37:37", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-28T11:37:51", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-28T11:42:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-28T11:42:53", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-28T12:02:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-28T12:03:14", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-28T12:32:17", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-28T12:32:19", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-28T12:32:21", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-28T12:32:22", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-28T13:38:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-28T13:38:41", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-28T13:38:42", "evento": "pausa_iniciada"}
+{"quando": "2026-10-29T11:48:23", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-29T11:48:32", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-29T11:53:23", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-29T11:53:30", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-29T12:03:22", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-29T12:03:29", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-29T12:08:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-29T12:28:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-29T12:28:32", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-29T15:04:20", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-29T15:04:22", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-10-29T15:04:48", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-29T15:32:02", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-10-29T15:32:05", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-10-29T15:32:15", "evento": "pausa_iniciada"}
+{"quando": "2026-10-30T14:38:29", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T14:41:17", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T14:43:29", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-30T14:44:22", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-30T14:53:30", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-30T14:53:48", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-30T14:58:29", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T14:58:40", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T15:18:29", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T15:18:36", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T15:38:30", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T15:38:34", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T15:43:30", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-30T15:43:35", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-30T15:58:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T15:59:04", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T16:18:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T16:18:43", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T16:23:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-30T16:23:59", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-30T16:38:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T16:39:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T16:43:31", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-30T16:44:44", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-30T16:58:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T16:58:44", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T17:18:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T17:18:37", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T17:38:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T17:38:37", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T17:43:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-30T17:53:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-10-30T17:53:36", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-10-30T17:58:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T17:58:48", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T18:18:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T18:19:51", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T18:38:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T18:38:43", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-10-30T18:43:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-10-30T18:43:46", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-10-30T18:58:36", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-10-30T19:01:54", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T14:29:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T14:32:07", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T14:34:46", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-02T14:34:59", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T14:44:46", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-02T14:45:01", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-02T14:49:47", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T14:50:13", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T15:09:48", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T15:10:00", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T15:29:49", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T15:34:47", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-02T15:34:54", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T15:49:49", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T15:50:02", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T16:09:50", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T16:10:32", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T16:14:51", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-02T16:29:50", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T16:30:04", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T16:34:48", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-02T16:49:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T17:09:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T17:09:56", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T17:30:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-02T17:30:09", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T17:34:51", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-02T17:44:47", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-02T17:45:22", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-02T17:49:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T17:50:09", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T18:09:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T18:10:03", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T18:50:44", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-02T18:50:48", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-02T18:50:52", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T18:50:53", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T19:10:44", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T19:14:48", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-02T19:30:44", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T19:32:11", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T19:32:12", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T19:32:12", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T19:34:51", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-02T19:35:08", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T19:50:45", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-02T19:52:24", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T20:13:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-02T20:13:18", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T20:34:26", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-02T20:34:34", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-02T20:34:52", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-02T20:34:58", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-02T20:35:01", "evento": "pausa_iniciada"}
+{"quando": "2026-11-03T15:21:58", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T15:22:24", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T15:26:58", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-03T15:27:11", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-03T15:36:58", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-03T15:37:18", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-03T15:41:58", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T15:44:42", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T16:01:58", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T16:03:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T16:21:59", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T16:22:27", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T16:26:59", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-03T16:32:20", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-03T16:42:00", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T17:02:01", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T17:06:58", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-03T17:07:09", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-03T17:22:02", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T17:26:59", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-03T17:42:02", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T18:02:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T18:03:16", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T18:22:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T18:27:00", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-03T18:27:30", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-03T18:36:59", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-03T18:39:33", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-03T18:42:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T18:42:09", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T19:02:04", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T19:02:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T19:22:05", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-03T19:23:25", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-03T19:23:27", "evento": "pausa_iniciada"}
+{"quando": "2026-11-04T12:33:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T12:33:48", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-04T12:38:39", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-04T12:41:17", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-04T12:48:38", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-04T12:48:43", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-04T12:53:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T13:13:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T13:15:07", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-04T13:33:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T13:34:38", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-04T13:38:40", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-04T13:41:43", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-04T13:53:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T13:53:45", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-04T14:13:40", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T14:15:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-04T14:18:39", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-04T14:18:57", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-04T14:33:40", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T14:38:40", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-04T14:53:41", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-04T14:53:53", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T13:35:30", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T13:35:50", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T13:40:31", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-05T13:41:01", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-05T13:50:30", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-05T13:50:41", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-05T13:55:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T13:56:16", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T14:15:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T14:15:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T14:35:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T14:36:08", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T14:40:31", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-05T14:41:00", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-05T14:55:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T14:55:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T15:15:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T15:16:05", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T15:20:30", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-05T15:22:14", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-05T15:35:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T15:36:48", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T15:40:31", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-05T15:41:02", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-05T15:55:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T15:59:14", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T16:15:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T16:35:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T16:36:36", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T16:40:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-05T16:42:04", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-05T16:50:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-05T16:51:08", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-05T16:55:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T16:57:08", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T17:15:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T17:36:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T17:40:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-05T17:43:32", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-05T17:56:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-05T17:56:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-05T20:36:03", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-05T20:36:06", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-05T21:04:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-05T21:04:54", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-05T21:04:58", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-05T21:04:58", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-05T21:05:01", "evento": "pausa_iniciada"}
+{"quando": "2026-11-06T10:07:05", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-06T10:12:01", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-06T10:12:05", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-06T10:12:45", "evento": "soneca_iniciada", "duracao_segundos": 900}
+{"quando": "2026-11-06T10:27:46", "evento": "soneca_encerrada", "duracao_segundos": 900.3}
+{"quando": "2026-11-06T10:37:06", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-06T10:38:13", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-06T10:42:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-06T11:02:07", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-06T11:03:07", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-06T11:22:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-06T11:22:39", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-06T11:27:06", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-06T11:29:20", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-06T11:42:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-06T11:42:59", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T12:03:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T12:05:21", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T12:08:38", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T12:12:18", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-07T12:18:38", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-07T12:18:52", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T12:23:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T12:27:54", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T12:43:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T12:43:43", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T13:03:39", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T13:06:09", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T13:08:39", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T13:09:20", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-07T13:23:40", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T13:25:42", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T13:43:42", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-07T13:44:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T13:48:39", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-07T13:49:11", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T14:03:41", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T14:03:59", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T14:08:39", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T14:09:20", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-07T14:23:41", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T14:24:04", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T14:43:41", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T16:20:56", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-07T16:21:00", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-07T16:21:03", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-07T16:21:06", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T16:21:19", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T16:40:56", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T16:41:42", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T16:48:40", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-07T16:49:18", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T17:00:57", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T17:01:01", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T17:20:56", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T17:20:58", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T17:40:59", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T17:42:51", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T18:00:59", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T18:02:13", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T18:18:41", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-07T18:19:30", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-07T18:20:57", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T18:20:59", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T18:21:45", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T18:21:45", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T19:13:18", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-07T19:20:58", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-07T19:22:43", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-07T19:33:10", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-07T19:33:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-07T20:16:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-07T20:16:11", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-07T21:35:18", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-07T21:35:21", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-07T21:35:22", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-08T13:32:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T13:37:50", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-08T13:38:15", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-08T13:47:51", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-08T13:48:03", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-08T13:52:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T13:53:16", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T14:12:51", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T14:13:03", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T14:32:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T14:34:06", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T14:37:50", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-08T14:39:33", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-08T14:52:52", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T14:53:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T15:12:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T15:14:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T15:17:51", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-08T15:18:17", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-08T15:32:54", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T15:33:23", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T15:37:51", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-08T15:39:43", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-08T15:52:55", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-08T17:04:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-08T17:04:25", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-08T17:04:26", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-08T17:04:28", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-08T17:04:28", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-08T17:35:59", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-08T17:36:14", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T17:37:53", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-08T17:37:57", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-08T17:53:53", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-08T17:53:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T18:05:04", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-08T18:05:34", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-08T18:18:26", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-08T18:18:31", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-08T18:30:49", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-09T10:52:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T10:53:04", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T10:57:22", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T11:07:22", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-09T11:08:14", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-09T11:12:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T11:12:25", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T11:32:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T11:32:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T11:52:22", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T11:53:40", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T11:57:22", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T11:58:01", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-09T12:12:22", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T12:14:57", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T12:32:23", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T12:33:05", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T12:37:22", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-09T12:37:26", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-09T12:52:23", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T13:02:38", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T13:12:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T13:12:27", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T13:32:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T13:59:05", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T14:02:39", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T14:03:13", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-09T14:07:22", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-09T14:07:42", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-09T14:19:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T14:19:09", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T14:39:07", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T14:39:48", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T14:59:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T15:00:19", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T15:02:39", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T15:05:03", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-09T15:19:08", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T15:21:26", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T15:37:23", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-09T15:38:10", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-09T15:39:09", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T15:42:46", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T15:59:09", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T15:59:33", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T16:02:40", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-09T19:46:24", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-09T19:46:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T19:51:15", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-09T19:51:47", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-09T20:00:37", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-09T20:00:47", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-09T20:05:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-09T20:05:38", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T20:25:00", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T20:25:21", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T20:45:00", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T20:51:09", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-09T20:51:37", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-09T21:07:06", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-09T21:07:21", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-09T21:25:01", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-09T21:25:17", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T10:34:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T10:35:55", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T10:39:30", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T10:39:46", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T10:49:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-10T10:49:44", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-10T10:54:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T10:54:47", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T11:14:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T11:34:32", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T11:34:46", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T11:39:30", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T11:41:02", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T11:54:33", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T11:54:58", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T12:14:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T12:15:55", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T12:19:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-10T12:34:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T12:39:31", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T12:54:34", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T12:55:05", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T13:14:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T13:14:40", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T13:34:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T13:39:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T13:39:48", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T13:49:31", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-10T13:49:45", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-10T13:54:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T13:55:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T14:14:35", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T14:34:36", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T14:36:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T14:39:32", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T14:54:36", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T15:14:37", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T15:14:49", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T15:19:32", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-10T15:21:27", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-10T15:34:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T15:35:39", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T15:39:48", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-10T15:40:55", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T15:54:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T15:54:49", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T16:14:38", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T16:14:50", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T16:35:31", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-10T16:35:35", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T16:39:34", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T16:39:50", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T16:49:33", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-10T16:49:40", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-10T16:54:40", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T16:55:01", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T17:14:40", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T17:15:32", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T17:34:41", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T17:35:12", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T17:39:36", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-10T17:39:51", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T17:54:56", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-10T18:14:42", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T18:15:28", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T18:33:21", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": true}
+{"quando": "2026-11-10T18:42:15", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": true}
+{"quando": "2026-11-10T18:42:17", "evento": "lembrete_entregue", "nome": "Água", "atrasado": true}
+{"quando": "2026-11-10T18:42:39", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T18:42:39", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-10T19:02:13", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T19:22:20", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T19:23:17", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T19:42:13", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-10T19:42:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-10T19:42:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-10T19:42:30", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-11T09:42:12", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T09:47:12", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-11T09:48:15", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-11T09:48:16", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-11T09:57:12", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-11T09:57:36", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-11T10:02:12", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T10:02:15", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-11T10:22:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T10:42:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T10:43:11", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-11T10:47:12", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-11T10:49:51", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-11T11:02:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T11:05:23", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-11T11:22:14", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T11:24:03", "evento": "lembrete_confirmado", "nome": "Olhos"}
+{"quando": "2026-11-11T11:27:12", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-11T11:42:15", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T12:14:20", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T12:14:33", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-11T12:14:39", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-11T12:14:39", "evento": "lembrete_confirmado", "nome": "Água"}
+{"quando": "2026-11-11T12:34:21", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T13:19:19", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T13:19:25", "evento": "lembrete_entregue", "nome": "Água", "atrasado": false}
+{"quando": "2026-11-11T13:19:27", "evento": "lembrete_entregue", "nome": "Alongamento", "atrasado": false}
+{"quando": "2026-11-11T13:19:55", "evento": "lembrete_confirmado", "nome": "Alongamento"}
+{"quando": "2026-11-11T13:58:05", "evento": "lembrete_entregue", "nome": "Olhos", "atrasado": false}
+{"quando": "2026-11-11T13:58:08", "evento": "lembrete_confirmado", "nome": "Olhos"}

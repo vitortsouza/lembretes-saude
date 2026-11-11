@@ -18,20 +18,24 @@ periódicos de saúde enquanto você usa o computador.
 Cada lembrete tem um som próprio, feito com bipes em frequências diferentes.
 As notificações usam o sistema nativo de toast do Windows.
 
-## 🎮 Comportamento em tela cheia
+## 🎮 Comportamento em tela cheia e tela de bloqueio
 
-Quem joga, assiste a vídeos ou apresenta em tela cheia não é interrompido:
+Quem joga, assiste a vídeos, apresenta em tela cheia ou sai do computador não é
+interrompido:
 
 | Situação | Som | Notificação | O que acontece |
 |---|:---:|:---:|---|
 | Uso normal | Toca | Exibe | O lembrete é entregue na hora. |
 | App em tela cheia | **Não toca** | **Não exibe** | O lembrete fica pendente. |
+| Computador bloqueado | **Não toca** | **Não exibe** | O lembrete fica pendente. |
 | Acabou de sair da tela cheia | Toca | Exibe | O lembrete pendente é entregue imediatamente. |
+| Acabou de desbloquear | Toca | Exibe | O lembrete pendente é entregue imediatamente. |
 
-Se vários lembretes vencerem durante o mesmo período em tela cheia, cada um
-deles é entregue uma única vez ao sair. Isso evita uma rajada de notificações
-antigas depois de um filme ou de uma partida longa. O próximo horário de cada
-lembrete é recalculado a partir da saída da tela cheia.
+Se vários lembretes vencerem durante o mesmo período em tela cheia ou
+bloqueado, cada um deles é entregue uma única vez ao sair. Isso evita uma
+rajada de notificações antigas depois de um filme, de uma partida longa ou de
+uma pausa. O próximo horário de cada lembrete é recalculado a partir da saída
+da tela cheia ou do desbloqueio.
 
 A detecção considera a janela em primeiro plano e o monitor em que ela está.
 Janelas maximizadas normalmente **não** são tratadas como tela cheia; apenas
@@ -48,6 +52,7 @@ Clique com o **botão direito** no ícone para acessar:
 - **Retomar lembretes** — volta a agenda sem uma rajada de avisos atrasados.
 - **Soneca por 15, 30 ou 60 minutos** — silencia tudo por um período.
 - **Cancelar soneca** — volta imediatamente à agenda.
+- **Recarregar configuração** — relê o `config.json` sem reiniciar.
 - **Sair** — encerra o programa e remove o ícone.
 
 Um **duplo clique** no ícone alterna entre pausar e retomar (ou cancela uma
@@ -117,7 +122,15 @@ permissão de administrador é necessária. Para desativar:
 - ✅ Notificações toast nativas do Windows.
 - ✅ Sons distintos para cada tipo de lembrete.
 - ✅ Sem som e sem notificação durante apps em tela cheia.
-- ✅ Entrega imediata dos lembretes adiados ao sair da tela cheia.
+- ✅ Sem som e sem notificação com o computador bloqueado (detecção por eventos do Windows).
+- ✅ Entrega imediata dos lembretes adiados ao sair da tela cheia ou desbloquear.
+- ✅ Lembretes que vencem juntos são agrupados em uma única notificação.
+- ✅ Agenda deslocada automaticamente após suspensão ou hibernação.
+- ✅ Pausa e soneca persistentes entre reinícios.
+- ✅ Instância única, evitando notificações duplicadas.
+- ✅ Histórico com rotação automática por tamanho.
+- ✅ Processo PowerShell reaproveitado entre notificações.
+- ✅ Recarregar `config.json` pelo menu da bandeja.
 - ✅ Ícone na bandeja com pausa, retomada, soneca e saída.
 - ✅ Atalhos globais `Ctrl+Alt+P` e `Ctrl+Alt+S`.
 - ✅ Horário de silêncio configurável por dia da semana.
@@ -214,7 +227,8 @@ python lembretes.py --estatisticas
 
 O resumo mostra:
 
-- lembretes entregues, incluindo quantos foram adiados por tela cheia;
+- lembretes entregues, incluindo quantos foram adiados por tela cheia ou
+  bloqueio;
 - confirmações feitas pelo botão **Feito**;
 - quantidade e duração total de pausas, sonecas e períodos de silêncio;
 - entregas por lembrete e o período coberto pelo histórico.
@@ -225,9 +239,15 @@ momento. Para desativar:
 ```json
 "historico": {
   "ativo": false,
-  "arquivo": "historico.jsonl"
+  "arquivo": "historico.jsonl",
+  "max_bytes": 1000000,
+  "backups": 2
 }
 ```
+
+Quando o arquivo passa de `max_bytes`, ele é renomeado para
+`historico.jsonl.1` e os backups mais antigos são descartados, mantendo no
+máximo `backups` arquivos. Use `max_bytes: 0` para desativar a rotação.
 
 ## ⚙️ Configuração por JSON
 
@@ -261,7 +281,13 @@ Trecho de exemplo:
   },
   "historico": {
     "ativo": true,
-    "arquivo": "historico.jsonl"
+    "arquivo": "historico.jsonl",
+    "max_bytes": 1000000,
+    "backups": 2
+  },
+  "estado": {
+    "ativo": true,
+    "arquivo": "estado.json"
   },
   "lembretes": {
     "olhos": {
@@ -294,6 +320,10 @@ digitação.
 | `horario_silencio.dias_semana` | Dias em que a janela começa (`seg` a `dom`). |
 | `historico.ativo` | Ativa a gravação do histórico. |
 | `historico.arquivo` | Nome ou caminho do arquivo JSON Lines. |
+| `historico.max_bytes` | Tamanho máximo antes da rotação (0 desativa). |
+| `historico.backups` | Quantidade de arquivos rotacionados mantidos. |
+| `estado.ativo` | Salva pausa e soneca para restaurar ao reiniciar. |
+| `estado.arquivo` | Nome ou caminho do arquivo de estado. |
 | `lembretes.<id>.ativo` | Ativa ou desativa um lembrete específico. |
 | `lembretes.<id>.nome` | Nome exibido no console e na notificação inicial. |
 | `lembretes.<id>.intervalo_segundos` | Intervalo entre os avisos. |
@@ -313,8 +343,12 @@ A ordem de precedência é:
 3. Opções `--teste`.
 4. Opções de linha de comando, como `--olhos` e `--sem-som`.
 
-Os arquivos `config.json` e `historico.jsonl` são ignorados pelo Git, para que
-configurações e dados pessoais não sejam enviados ao repositório.
+Os arquivos `config.json`, `historico.jsonl` e `estado.json` são ignorados pelo
+Git, para que configurações e dados pessoais não sejam enviados ao repositório.
+
+O menu da bandeja inclui **Recarregar configuração**, que relê o arquivo sem
+reiniciar o programa. Intervalos, mensagens, som, ações no toast e horário de
+silêncio passam a valer imediatamente; atalhos globais exigem reinício.
 
 ## 🪟 Iniciar junto com o Windows
 
@@ -362,19 +396,27 @@ disponibiliza como artefato `lembretes-saude-windows`.
 
 ## 🧠 Como funciona
 
-O programa usa um único laço principal, que verifica a agenda e a tela cheia a
-cada segundo. Para cada lembrete:
+O programa usa um único laço principal, que verifica a agenda, a tela cheia e a
+tela de bloqueio a cada segundo. Para cada lembrete:
 
-1. Se o horário chegou e não há tela cheia, o som toca e a notificação aparece.
-2. Se há tela cheia, o lembrete é marcado como pendente e o próximo horário é
-   reagendado.
-3. Quando a tela cheia termina, os lembretes pendentes são entregues e a agenda
-   continua normalmente.
+1. Se o horário chegou e não há tela cheia nem bloqueio, o som toca e a
+   notificação aparece.
+2. Se há tela cheia ou bloqueio, o lembrete é marcado como pendente e o próximo
+   horário é reagendado.
+3. Quando a tela cheia termina ou o computador é desbloqueado, os lembretes
+   pendentes são entregues e a agenda continua normalmente.
+4. Se vários lembretes vencerem no mesmo instante, eles são unidos em um único
+   toast, com uma linha por lembrete.
 
 Pausa manual, soneca e horário de silêncio compartilham o mesmo estado de
 suspensão. Os horários são deslocados uma única vez pelo tempo total em que os
 avisos ficaram suspensos. Assim, ao retomar, você não recebe vários lembretes
 antigos de uma vez, mesmo que os três modos se sobreponham.
+
+Se o programa perceber um salto grande entre dois ticks (suspensão,
+hibernação ou congelamento), ele desloca a agenda para frente em vez de
+disparar uma rajada de avisos atrasados. Pausa e soneca ficam gravadas em
+`estado.json` e são restauradas no próximo início.
 
 A detecção de tela cheia usa as APIs do Windows via `ctypes`:
 
@@ -384,6 +426,14 @@ A detecção de tela cheia usa as APIs do Windows via `ctypes`:
   trabalho.
 - `SetProcessDpiAwarenessContext` para evitar erros de coordenadas em telas com
   escala diferente de 100%.
+
+Com a bandeja ativa, o bloqueio é detectado por eventos: o programa registra
+`WTSRegisterSessionNotification` e reage a `WM_WTSSESSION_CHANGE`
+(`WTS_SESSION_LOCK` e `WTS_SESSION_UNLOCK`). `WM_POWERBROADCAST` antecipa a
+correção da agenda ao voltar da suspensão. Sem bandeja, ou se o registro falhar,
+`OpenInputDesktop` e `GetUserObjectInformationW` fazem a verificação periódica:
+quando a sessão está bloqueada, a área de trabalho de entrada é a segura
+(`Winlogon`/`LockApp`) ou o acesso é negado.
 
 A bandeja também é nativa:
 
@@ -395,13 +445,21 @@ A bandeja também é nativa:
 - `RegisterHotKey`/`UnregisterHotKey` registram os atalhos globais.
 - `FindWindowW` e `PostMessageW` enviam as ações do toast para a instância em
   execução.
+- `WTSRegisterSessionNotification` e `WM_WTSSESSION_CHANGE` detectam bloqueio e
+  desbloqueio da sessão sem polling.
 - O protocolo `lembretes-saude:` é registrado no registro do Windows para que
   os botões do toast possam chamar o programa.
 
+O mutex nomeado `Local\LembretesSaudeInstanciaUnica` impede duas instâncias
+simultâneas. As notificações são enviadas a um único processo PowerShell
+mantido aberto, que recebe cada script em Base64 por linha; se ele cair, é
+reiniciado automaticamente.
+
 ## 🧪 Testes
 
-Os testes cobrem a agenda, a pausa, a soneca, o horário de silêncio, o
-histórico, as ações do toast, a configuração e a notificação:
+Os testes cobrem a agenda (incluindo agrupamento e saltos por suspensão), a
+pausa, a soneca, o estado persistido, o horário de silêncio, o histórico com
+rotação, as ações do toast, a configuração e a notificação:
 
 ```powershell
 python -m unittest discover -s tests -v
@@ -471,7 +529,7 @@ ruff check .
 - Verifique se `som_ativo` está como `true` na configuração.
 - `winsound.Beep` depende do dispositivo de áudio; se ele falhar, a notificação
   visual ainda é exibida.
-- Durante a tela cheia, o silêncio é intencional.
+- Durante a tela cheia ou com o computador bloqueado, o silêncio é intencional.
 
 ### A tela cheia não foi detectada
 

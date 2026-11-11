@@ -19,9 +19,16 @@ WM_CONTEXTMENU = 0x007B
 WM_RBUTTONUP = 0x0205
 WM_LBUTTONDBLCLK = 0x0203
 WM_HOTKEY = 0x0312
+WM_WTSSESSION_CHANGE = 0x02B1
+WM_POWERBROADCAST = 0x0218
 WM_USER = 0x0400
 WM_TRAYICON = WM_USER + 1
 WM_ACAO_TOAST = WM_USER + 2
+
+WTS_SESSION_LOCK = 0x7
+WTS_SESSION_UNLOCK = 0x8
+NOTIFY_FOR_THIS_SESSION = 0
+PBT_APMRESUMEAUTOMATIC = 0x0012
 
 NOME_CLASSE = "LembretesSaudeTrayWindow"
 PROTOCOLO = "lembretes-saude"
@@ -71,6 +78,7 @@ ID_CANCELAR_SONECA = 1003
 ID_SONECA_15 = 1015
 ID_SONECA_30 = 1030
 ID_SONECA_60 = 1060
+ID_RECARREGAR_CONFIG = 1080
 ID_SAIR = 1099
 
 SONECAS = {
@@ -84,6 +92,11 @@ TIMER_ID = 1
 user32 = ctypes.WinDLL("user32", use_last_error=True)
 shell32 = ctypes.WinDLL("shell32", use_last_error=True)
 kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+
+try:
+    wtsapi32 = ctypes.WinDLL("wtsapi32", use_last_error=True)
+except OSError:
+    wtsapi32 = None
 
 WNDPROC = ctypes.WINFUNCTYPE(
     ctypes.c_ssize_t,
@@ -277,6 +290,15 @@ def _configurar_api() -> None:
     ]
     shell32.Shell_NotifyIconW.restype = wt.BOOL
 
+    if wtsapi32 is not None:
+        wtsapi32.WTSRegisterSessionNotification.argtypes = [
+            wt.HWND,
+            wt.DWORD,
+        ]
+        wtsapi32.WTSRegisterSessionNotification.restype = wt.BOOL
+        wtsapi32.WTSUnRegisterSessionNotification.argtypes = [wt.HWND]
+        wtsapi32.WTSUnRegisterSessionNotification.restype = wt.BOOL
+
     _configurado = True
 
 
@@ -430,7 +452,7 @@ def executar_acao(acao: str) -> bool:
     return bool(user32.PostMessageW(hwnd, WM_ACAO_TOAST, codigo, 0))
 
 
-def executar_com_bandeja(agendador) -> None:
+def executar_com_bandeja(agendador, recarregar=None) -> None:
     """Executa o agendador com um ícone na bandeja do Windows."""
     _configurar_api()
 
@@ -474,6 +496,8 @@ def executar_com_bandeja(agendador) -> None:
             agendador.sonecar(15 * 60)
 
     def executar_comando(comando: int, hwnd: wt.HWND) -> None:
+        nonlocal timer
+
         if comando == ID_PAUSAR:
             agendador.pausar()
         elif comando == ID_RETOMAR:
@@ -482,6 +506,19 @@ def executar_com_bandeja(agendador) -> None:
             agendador.cancelar_soneca()
         elif comando in SONECAS:
             agendador.sonecar(SONECAS[comando])
+        elif comando == ID_RECARREGAR_CONFIG:
+            if recarregar is not None:
+                recarregar()
+
+                if timer:
+                    user32.KillTimer(hwnd, timer)
+                    intervalo_ms = max(
+                        200,
+                        int(agendador.intervalo_verificacao * 1000),
+                    )
+                    timer = user32.SetTimer(
+                        hwnd, TIMER_ID, intervalo_ms, None
+                    )
         elif comando == ID_SAIR:
             user32.DestroyWindow(hwnd)
             return
@@ -524,6 +561,13 @@ def executar_com_bandeja(agendador) -> None:
             )
             user32.AppendMenuW(
                 menu, MF_STRING, ID_SONECA_60, "Soneca por 60 minutos"
+            )
+            user32.AppendMenuW(menu, MF_SEPARATOR, 0, None)
+            user32.AppendMenuW(
+                menu,
+                MF_STRING,
+                ID_RECARREGAR_CONFIG,
+                "Recarregar configuração",
             )
             user32.AppendMenuW(menu, MF_SEPARATOR, 0, None)
             user32.AppendMenuW(menu, MF_STRING, ID_SAIR, "Sair")
@@ -583,6 +627,37 @@ def executar_com_bandeja(agendador) -> None:
             atualizar_tooltip()
             return 0
 
+        if mensagem == WM_WTSSESSION_CHANGE:
+            evento = int(wparam)
+            if evento == WTS_SESSION_LOCK:
+                agendador.definir_bloqueio(True)
+                agendador.registrar(
+                    "Sessão bloqueada: som e notificações serão adiados."
+                )
+            elif evento == WTS_SESSION_UNLOCK:
+                agendador.definir_bloqueio(False)
+                agendador.registrar(
+                    "Sessão desbloqueada: retomando a agenda."
+                )
+                try:
+                    agendador.tick()
+                except Exception as erro:
+                    agendador.registrar(f"ERRO no agendador: {erro}")
+
+            atualizar_tooltip()
+            return 0
+
+        if mensagem == WM_POWERBROADCAST:
+            if int(wparam) == PBT_APMRESUMEAUTOMATIC:
+                try:
+                    agendador.tick()
+                except Exception as erro:
+                    agendador.registrar(f"ERRO no agendador: {erro}")
+
+                atualizar_tooltip()
+
+            return True
+
         if mensagem == WM_ACAO_TOAST:
             codigo = int(wparam)
             if codigo == ACAO_FEITO:
@@ -623,8 +698,20 @@ def executar_com_bandeja(agendador) -> None:
     icone_adicionado = False
     timer = 0
     hotkeys_registrados = []
+    sessao_registrada = False
 
     try:
+        if wtsapi32 is not None and wtsapi32.WTSRegisterSessionNotification(
+            hwnd, NOTIFY_FOR_THIS_SESSION
+        ):
+            sessao_registrada = True
+            agendador.definir_bloqueio(False)
+        else:
+            agendador.registrar(
+                "Eventos de sessão indisponíveis: usando verificação "
+                "periódica do bloqueio."
+            )
+
         if getattr(agendador, "atalhos_globais", False):
             for identificador, tecla, rotulo in (
                 (ID_HOTKEY_PAUSAR, VK_P, "Ctrl+Alt+P"),
@@ -678,6 +765,9 @@ def executar_com_bandeja(agendador) -> None:
     finally:
         for identificador in hotkeys_registrados:
             user32.UnregisterHotKey(hwnd, identificador)
+
+        if sessao_registrada:
+            wtsapi32.WTSUnRegisterSessionNotification(hwnd)
 
         if timer:
             user32.KillTimer(hwnd, timer)

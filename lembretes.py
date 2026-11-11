@@ -5,9 +5,14 @@ Lembretes de saúde para Windows 10/11, sem dependências externas.
 - A cada 20 minutos: descanso dos olhos.
 - A cada 60 minutos: beber água.
 - A cada 90 minutos: levantar e se alongar.
-- Em tela cheia, o som e a notificação ficam pendentes.
-- Ao sair da tela cheia, o lembrete atrasado é entregue.
-- Ícone na bandeja para pausar, fazer uma soneca ou sair.
+- Em tela cheia ou com o computador bloqueado, o som e a notificação
+  ficam pendentes.
+- Ao sair da tela cheia ou desbloquear, o lembrete atrasado é entregue.
+- Lembretes que vencem juntos viram uma única notificação.
+- Agenda corrigida após suspensão/hibernação; pausa e soneca persistem.
+- Instância única e histórico com rotação automática.
+- Ícone na bandeja para pausar, fazer uma soneca, recarregar a configuração
+  ou sair.
 - Horário de silêncio configurável e atalhos globais.
 - Botões "Feito" e "Soneca 15 min" no toast.
 - Histórico em JSON Lines e resumo com --estatisticas.
@@ -21,12 +26,14 @@ Uso:
 """
 
 import argparse
+import base64
 import copy
 import ctypes
 import ctypes.wintypes
 import json
 import subprocess
 import sys
+import threading
 import time
 from collections import Counter
 from dataclasses import dataclass
@@ -41,7 +48,7 @@ if E_WINDOWS:
 else:
     winsound = None
 
-VERSAO = "2.1.0"
+VERSAO = "2.2.0"
 
 PROTOCOLO_ACOES = "lembretes-saude"
 
@@ -89,6 +96,22 @@ CLASSES_SHELL = frozenset(
 
 MONITOR_DEFAULTTONEAREST = 2
 CREATE_NO_WINDOW = 0x08000000
+ERROR_ALREADY_EXISTS = 183
+
+# Mutex usado para impedir duas instâncias simultâneas
+NOME_MUTEX = "Local\\LembretesSaudeInstanciaUnica"
+
+# Intervalo mínimo entre ticks para considerar que houve suspensão
+INTERVALO_MINIMO_SALTO = 90.0
+
+# Constantes usadas na detecção da tela de bloqueio
+UOI_NAME = 2
+DESKTOP_READOBJECTS = 0x0001
+DESKTOP_SWITCHDESKTOP = 0x0100
+DESKTOPS_SEGUROS = frozenset({"winlogon", "lockapp"})
+
+MOTIVO_TELA_CHEIA = "em um app em tela cheia"
+MOTIVO_BLOQUEIO = "com o computador bloqueado"
 
 _user32 = None
 
@@ -183,6 +206,25 @@ def _configurar_api():
     ]
     user32.GetMonitorInfoW.restype = ctypes.wintypes.BOOL
 
+    user32.OpenInputDesktop.argtypes = [
+        ctypes.wintypes.DWORD,
+        ctypes.wintypes.BOOL,
+        ctypes.wintypes.DWORD,
+    ]
+    user32.OpenInputDesktop.restype = ctypes.wintypes.HANDLE
+
+    user32.CloseDesktop.argtypes = [ctypes.wintypes.HANDLE]
+    user32.CloseDesktop.restype = ctypes.wintypes.BOOL
+
+    user32.GetUserObjectInformationW.argtypes = [
+        ctypes.wintypes.HANDLE,
+        ctypes.c_int,
+        ctypes.c_void_p,
+        ctypes.wintypes.DWORD,
+        ctypes.POINTER(ctypes.wintypes.DWORD),
+    ]
+    user32.GetUserObjectInformationW.restype = ctypes.wintypes.BOOL
+
     _user32 = user32
     return user32
 
@@ -231,6 +273,70 @@ def em_tela_cheia() -> bool:
         and retangulo.right >= area.right
         and retangulo.bottom >= area.bottom
     )
+
+
+def sessao_bloqueada() -> bool:
+    """Verifica se a sessão atual está na tela de bloqueio do Windows."""
+    if not E_WINDOWS:
+        return False
+
+    user32 = _configurar_api()
+
+    # Quando a sessão está bloqueada, a área de trabalho de entrada é a
+    # segura (Winlogon/LockApp) e OpenInputDesktop costuma negar acesso.
+    desktop = user32.OpenInputDesktop(
+        0, False, DESKTOP_READOBJECTS | DESKTOP_SWITCHDESKTOP
+    )
+    if not desktop:
+        return True
+
+    try:
+        buffer = ctypes.create_unicode_buffer(256)
+        necessario = ctypes.wintypes.DWORD()
+        if not user32.GetUserObjectInformationW(
+            desktop,
+            UOI_NAME,
+            ctypes.cast(buffer, ctypes.c_void_p),
+            ctypes.sizeof(buffer),
+            ctypes.byref(necessario),
+        ):
+            return False
+
+        return buffer.value.lower() in DESKTOPS_SEGUROS
+    finally:
+        user32.CloseDesktop(desktop)
+
+
+_mutex_instancia = None
+
+
+def garantir_instancia_unica(nome: str = NOME_MUTEX) -> bool:
+    """Cria um mutex nomeado e indica se esta é a única instância ativa."""
+    global _mutex_instancia
+
+    if not E_WINDOWS or _mutex_instancia is not None:
+        return True
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateMutexW.argtypes = [
+        ctypes.c_void_p,
+        ctypes.wintypes.BOOL,
+        ctypes.wintypes.LPCWSTR,
+    ]
+    kernel32.CreateMutexW.restype = ctypes.wintypes.HANDLE
+    kernel32.CloseHandle.argtypes = [ctypes.wintypes.HANDLE]
+    kernel32.CloseHandle.restype = ctypes.wintypes.BOOL
+
+    handle = kernel32.CreateMutexW(None, False, nome)
+    if not handle:
+        return True
+
+    if ctypes.get_last_error() == ERROR_ALREADY_EXISTS:
+        kernel32.CloseHandle(handle)
+        return False
+
+    _mutex_instancia = handle
+    return True
 
 
 def tocar_som(notas: Sequence[Tuple[int, int]]) -> None:
@@ -302,43 +408,124 @@ $toast = New-Object Windows.UI.Notifications.ToastNotification $xml
 """
 
 
-def notificar(
-    titulo: str,
-    mensagem: str,
-    acoes: Optional[Sequence[Tuple[str, str]]] = None,
-) -> bool:
-    """Mostra uma notificação do Windows via PowerShell."""
-    if not E_WINDOWS:
-        return False
+class Notificador:
+    """Mantém um processo PowerShell reaproveitado para exibir toasts.
 
-    script = montar_script_toast(titulo, mensagem, acoes)
+    Criar um processo novo a cada notificação custa tempo e memória. O
+    processo é iniciado sob demanda e reiniciado automaticamente se morrer.
+    """
 
-    try:
-        resultado = subprocess.run(
+    def __init__(self) -> None:
+        self._processo: Optional[subprocess.Popen] = None
+        self._lock = threading.Lock()
+
+    def _iniciar(self) -> subprocess.Popen:
+        laco = (
+            "while (($linha = [Console]::In.ReadLine()) -ne $null) { "
+            "try { "
+            "$texto = [Text.Encoding]::UTF8.GetString("
+            "[Convert]::FromBase64String($linha)); "
+            "Invoke-Expression $texto "
+            "} catch { } "
+            "}"
+        )
+        self._processo = subprocess.Popen(
             [
                 "powershell",
                 "-NoProfile",
                 "-NonInteractive",
                 "-ExecutionPolicy", "Bypass",
-                "-Command", script,
+                "-Command", laco,
             ],
-            capture_output=True,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=20,
             creationflags=CREATE_NO_WINDOW,
         )
-    except (OSError, subprocess.TimeoutExpired) as erro:
-        log(f"ERRO ao executar o PowerShell: {erro}")
+        return self._processo
+
+    def _descartar(self) -> None:
+        processo, self._processo = self._processo, None
+        if processo is None:
+            return
+
+        try:
+            if processo.stdin is not None:
+                processo.stdin.close()
+        except OSError:
+            pass
+
+        try:
+            processo.terminate()
+        except OSError:
+            pass
+
+    def enviar(self, script: str) -> bool:
+        if not E_WINDOWS:
+            return False
+
+        with self._lock:
+            for _ in range(2):
+                processo = self._processo
+                if processo is None or processo.poll() is not None:
+                    self._descartar()
+                    try:
+                        processo = self._iniciar()
+                    except OSError as erro:
+                        log(f"ERRO ao iniciar o PowerShell: {erro}")
+                        return False
+
+                try:
+                    if processo.stdin is None:
+                        raise OSError("entrada do PowerShell indisponível")
+                    codificado = base64.b64encode(
+                        script.encode("utf-8")
+                    ).decode("ascii")
+                    processo.stdin.write(codificado + "\n")
+                    processo.stdin.flush()
+                    return True
+                except (OSError, ValueError) as erro:
+                    log(f"ERRO ao enviar notificação: {erro}")
+                    self._descartar()
+
+            return False
+
+    def encerrar(self) -> None:
+        with self._lock:
+            self._descartar()
+
+
+_notificador: Optional[Notificador] = None
+
+
+def obter_notificador() -> Notificador:
+    """Retorna o notificador compartilhado, criando-o na primeira vez."""
+    global _notificador
+    if _notificador is None:
+        _notificador = Notificador()
+    return _notificador
+
+
+def encerrar_notificador() -> None:
+    """Fecha o processo PowerShell reaproveitado, se existir."""
+    if _notificador is not None:
+        _notificador.encerrar()
+
+
+def notificar(
+    titulo: str,
+    mensagem: str,
+    acoes: Optional[Sequence[Tuple[str, str]]] = None,
+) -> bool:
+    """Mostra uma notificação do Windows via PowerShell reutilizado."""
+    if not E_WINDOWS:
         return False
 
-    if resultado.returncode != 0:
-        detalhe = (resultado.stderr or "").strip() or "falha desconhecida"
-        log(f"ERRO na notificação: {detalhe}")
-        return False
-
-    return True
+    script = montar_script_toast(titulo, mensagem, acoes)
+    return obter_notificador().enviar(script)
 
 
 @dataclass
@@ -351,6 +538,9 @@ class Lembrete:
     atraso_inicial: float
     proximo: float = 0.0
     pendente: bool = False
+    motivo: str = ""
+    chave: str = ""
+    ativo: bool = True
 
 
 def config_padrao() -> dict:
@@ -370,6 +560,12 @@ def config_padrao() -> dict:
         "historico": {
             "ativo": True,
             "arquivo": "historico.jsonl",
+            "max_bytes": 1_000_000,
+            "backups": 2,
+        },
+        "estado": {
+            "ativo": True,
+            "arquivo": "estado.json",
         },
         "lembretes": {
             "olhos": {
@@ -549,6 +745,20 @@ def validar_config(config: dict) -> None:
 
     _validar_booleano(historico["ativo"], "historico.ativo")
     _validar_texto(historico["arquivo"], "historico.arquivo")
+    _validar_inteiro(
+        historico["max_bytes"],
+        "historico.max_bytes",
+        0,
+        100_000_000,
+    )
+    _validar_inteiro(historico["backups"], "historico.backups", 0, 9)
+
+    estado = config["estado"]
+    if not isinstance(estado, dict):
+        raise ValueError("estado deve ser um objeto.")
+
+    _validar_booleano(estado["ativo"], "estado.ativo")
+    _validar_texto(estado["arquivo"], "estado.arquivo")
 
     if not isinstance(config.get("lembretes"), dict):
         raise ValueError("lembretes deve ser um objeto.")
@@ -628,10 +838,46 @@ def caminho_historico(config: dict) -> Path:
 
 
 class Historico:
-    """Grava eventos em um arquivo JSON Lines."""
+    """Grava eventos em um arquivo JSON Lines com rotação por tamanho."""
 
-    def __init__(self, caminho) -> None:
+    def __init__(
+        self,
+        caminho,
+        max_bytes: int = 1_000_000,
+        backups: int = 2,
+    ) -> None:
         self.caminho = Path(caminho)
+        self.max_bytes = int(max_bytes)
+        self.backups = int(backups)
+
+    def _rotacionar(self) -> None:
+        if self.max_bytes <= 0:
+            return
+
+        try:
+            if self.caminho.stat().st_size < self.max_bytes:
+                return
+        except OSError:
+            return
+
+        try:
+            if self.backups <= 0:
+                self.caminho.unlink(missing_ok=True)
+                return
+
+            for indice in range(self.backups, 0, -1):
+                origem = Path(f"{self.caminho}.{indice}")
+                if not origem.is_file():
+                    continue
+
+                if indice == self.backups:
+                    origem.unlink()
+                else:
+                    origem.replace(Path(f"{self.caminho}.{indice + 1}"))
+
+            self.caminho.replace(Path(f"{self.caminho}.1"))
+        except OSError as erro:
+            log(f"Não foi possível rotacionar o histórico: {erro}")
 
     def registrar(self, evento: str, **dados) -> bool:
         registro = {
@@ -639,6 +885,8 @@ class Historico:
             "evento": evento,
         }
         registro.update(dados)
+
+        self._rotacionar()
 
         try:
             self.caminho.parent.mkdir(parents=True, exist_ok=True)
@@ -658,7 +906,66 @@ def criar_historico(config: dict) -> Optional[Historico]:
     if not config["historico"]["ativo"]:
         return None
 
-    return Historico(caminho_historico(config))
+    dados = config["historico"]
+    return Historico(
+        caminho_historico(config),
+        max_bytes=dados["max_bytes"],
+        backups=dados["backups"],
+    )
+
+
+def caminho_estado(config: dict) -> Path:
+    """Resolve o caminho do arquivo de estado persistente."""
+    arquivo = Path(config["estado"]["arquivo"]).expanduser()
+    if not arquivo.is_absolute():
+        arquivo = diretorio_base() / arquivo
+
+    return arquivo
+
+
+class EstadoSistema:
+    """Persiste pausa e soneca para sobreviver a reinícios."""
+
+    def __init__(self, caminho) -> None:
+        self.caminho = Path(caminho)
+
+    def carregar(self) -> dict:
+        try:
+            with self.caminho.open("r", encoding="utf-8") as arquivo:
+                dados = json.load(arquivo)
+        except (OSError, ValueError):
+            return {}
+
+        return dados if isinstance(dados, dict) else {}
+
+    def salvar(self, **dados) -> bool:
+        registro = {"quando": datetime.now().isoformat(timespec="seconds")}
+        registro.update(dados)
+
+        temporario = self.caminho.with_suffix(
+            self.caminho.suffix + ".tmp"
+        )
+
+        try:
+            self.caminho.parent.mkdir(parents=True, exist_ok=True)
+            temporario.write_text(
+                json.dumps(registro, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            temporario.replace(self.caminho)
+        except OSError as erro:
+            log(f"Não foi possível salvar o estado: {erro}")
+            return False
+
+        return True
+
+
+def criar_estado(config: dict) -> Optional[EstadoSistema]:
+    """Cria o armazenamento de estado quando ele está ativado."""
+    if not config["estado"]["ativo"]:
+        return None
+
+    return EstadoSistema(caminho_estado(config))
 
 
 def _ler_historico(caminho: Path) -> List[dict]:
@@ -821,6 +1128,7 @@ def criar_lembretes(config: dict) -> List[Lembrete]:
                 atraso_inicial=float(
                     dados["atraso_inicial_segundos"]
                 ),
+                chave=chave,
             )
         )
 
@@ -926,16 +1234,21 @@ def iniciar_agenda(
 def processar_tick(
     lembretes: List[Lembrete],
     agora: float,
-    tela_cheia: bool,
+    adiar: bool,
     entregar: Callable[[Lembrete, bool], None],
+    motivo: str = MOTIVO_TELA_CHEIA,
 ) -> List[Lembrete]:
     """Processa um instante da agenda e retorna os lembretes adiados."""
     adiados = []
 
     for lembrete in lembretes:
-        if tela_cheia:
+        if not lembrete.ativo:
+            continue
+
+        if adiar:
             if not lembrete.pendente and agora >= lembrete.proximo:
                 lembrete.pendente = True
+                lembrete.motivo = motivo
                 lembrete.proximo = agora + lembrete.intervalo
                 adiados.append(lembrete)
             continue
@@ -963,19 +1276,58 @@ def entregar_lembrete(
 ) -> None:
     """Reproduz o som e exibe a notificação de um lembrete."""
     if atrasado:
-        log(f"{lembrete.nome}: entregando lembrete adiado.")
+        motivo = lembrete.motivo or MOTIVO_TELA_CHEIA
+        log(f"{lembrete.nome}: entregando lembrete adiado ({motivo}).")
         mensagem = (
             f"{lembrete.mensagem}\n\n"
-            "Adiado enquanto você estava em um app em tela cheia."
+            f"Adiado enquanto você estava {motivo}."
         )
     else:
         log(f"{lembrete.nome}: lembrete entregue.")
         mensagem = lembrete.mensagem
 
+    lembrete.motivo = ""
+
     if som_ativo:
         tocar_som(lembrete.notas)
 
     if not notificar(lembrete.titulo, mensagem, acoes):
+        log("A notificação visual não pôde ser exibida.")
+
+
+def entregar_lembretes(
+    entregas: Sequence[Tuple[Lembrete, bool]],
+    som_ativo: bool = True,
+    acoes: Optional[Sequence[Tuple[str, str]]] = None,
+) -> None:
+    """Entrega um ou mais lembretes, agrupando os que venceram juntos."""
+    if not entregas:
+        return
+
+    if len(entregas) == 1:
+        lembrete, atrasado = entregas[0]
+        entregar_lembrete(lembrete, atrasado, som_ativo, acoes)
+        return
+
+    if som_ativo:
+        for lembrete, _ in entregas:
+            tocar_som(lembrete.notas)
+
+    linhas = []
+    for lembrete, atrasado in entregas:
+        log(f"{lembrete.nome}: lembrete entregue (agrupado).")
+        linha = f"• {lembrete.titulo} {lembrete.mensagem}"
+        if atrasado:
+            linha += (
+                f" (adiado enquanto você estava "
+                f"{lembrete.motivo or MOTIVO_TELA_CHEIA})"
+            )
+        lembrete.motivo = ""
+        linhas.append(linha)
+
+    if not notificar(
+        "Lembretes de saúde 🕒", "\n".join(linhas), acoes
+    ):
         log("A notificação visual não pôde ser exibida.")
 
 
@@ -995,15 +1347,19 @@ class Agendador:
         historico: Optional[Historico] = None,
         atalhos_globais: bool = False,
         acoes_toast: bool = False,
+        obter_bloqueado: Callable[[], bool] = sessao_bloqueada,
+        estado: Optional["EstadoSistema"] = None,
     ) -> None:
         self.lembretes = lembretes
         self.som_ativo = som_ativo
         self.intervalo_verificacao = intervalo_verificacao
         self._obter_tela_cheia = obter_tela_cheia
+        self._obter_bloqueado = obter_bloqueado
         self._relogio = relogio
         self.registrar = registrar
         self._obter_silencio = em_silencio or (lambda: False)
         self.historico = historico
+        self.estado = estado
         self.atalhos_globais = atalhos_globais
         self.acoes_toast = acoes_toast
         self.pausado = False
@@ -1015,25 +1371,15 @@ class Agendador:
         self.soneca_inicio = None
         self.silencio_inicio = None
         self.tela_cheia_anterior = None
+        self.bloqueado_anterior = None
+        self.bloqueio_evento = None
         self.ultimo_entregue = None
-
-        if entregar is None:
-            def realizar(lembrete, atrasado):
-                self._registrar_entrega(lembrete, atrasado)
-                entregar_lembrete(
-                    lembrete,
-                    atrasado,
-                    som_ativo=self.som_ativo,
-                    acoes=ACOES_TOAST if self.acoes_toast else None,
-                )
-        else:
-            def realizar(lembrete, atrasado):
-                self._registrar_entrega(lembrete, atrasado)
-                entregar(lembrete, atrasado)
-
-        self._entregar = realizar
+        self.ultimo_tick = None
+        self._entregar_custom = entregar
 
         iniciar_agenda(lembretes, self._relogio())
+        self.ultimo_tick = self._relogio()
+        self._restaurar_estado()
 
     @property
     def sonecando(self) -> bool:
@@ -1042,6 +1388,10 @@ class Agendador:
     @property
     def suspenso(self) -> bool:
         return self.pausado or self.sonecando or self.em_silencio
+
+    def definir_bloqueio(self, bloqueado: bool) -> None:
+        """Atualiza o bloqueio da sessão a partir de eventos do Windows."""
+        self.bloqueio_evento = bool(bloqueado)
 
     def _registrar_evento(self, evento: str, **dados) -> None:
         if self.historico is not None:
@@ -1053,6 +1403,178 @@ class Agendador:
             "lembrete_entregue",
             nome=lembrete.nome,
             atrasado=atrasado,
+        )
+
+    def deslocar_agenda(self, segundos: float) -> None:
+        """Empurra a agenda para frente, sem entregar atrasados em rajada."""
+        if segundos <= 0:
+            return
+
+        for lembrete in self.lembretes:
+            lembrete.proximo += segundos
+
+        if self.soneca_ate is not None:
+            self.soneca_ate += segundos
+            if self.soneca_fim is not None:
+                self.soneca_fim += timedelta(seconds=segundos)
+
+        if self.suspenso_desde is not None:
+            self.suspenso_desde += segundos
+
+    def _corrigir_salto(self, agora: float) -> None:
+        """Desloca a agenda após suspensão, hibernação ou congelamento."""
+        anterior = self.ultimo_tick
+        self.ultimo_tick = agora
+
+        if anterior is None or self.suspenso:
+            return
+
+        decorrido = agora - anterior
+        limite = max(INTERVALO_MINIMO_SALTO, self.intervalo_verificacao * 60)
+        if decorrido <= limite:
+            return
+
+        self.deslocar_agenda(decorrido - self.intervalo_verificacao)
+        self.registrar(
+            "Retorno de suspensão detectado "
+            f"({formato_intervalo(decorrido)}): agenda deslocada."
+        )
+
+    def _salvar_estado(self) -> None:
+        if self.estado is None:
+            return
+
+        self.estado.salvar(
+            pausado=self.pausado,
+            soneca_fim=(
+                self.soneca_fim.isoformat(timespec="seconds")
+                if self.soneca_fim is not None
+                else None
+            ),
+        )
+
+    def _restaurar_estado(self) -> None:
+        if self.estado is None:
+            return
+
+        dados = self.estado.carregar()
+        if not dados:
+            return
+
+        agora = self._relogio()
+        decorrido = 0.0
+        quando = dados.get("quando")
+
+        if isinstance(quando, str):
+            try:
+                salvo = datetime.fromisoformat(quando)
+                decorrido = max(
+                    0.0, (datetime.now() - salvo).total_seconds()
+                )
+            except ValueError:
+                decorrido = 0.0
+
+        if decorrido:
+            self.deslocar_agenda(decorrido)
+
+        if dados.get("pausado"):
+            self.pausado = True
+            self.pausa_inicio = agora
+            self._entrar_suspensao(agora)
+            self.registrar("Pausa restaurada do estado salvo.")
+            return
+
+        fim = dados.get("soneca_fim")
+        if isinstance(fim, str):
+            try:
+                soneca_fim = datetime.fromisoformat(fim)
+            except ValueError:
+                soneca_fim = None
+
+            if soneca_fim is not None:
+                restante = (soneca_fim - datetime.now()).total_seconds()
+                if restante > 0:
+                    self.soneca_ate = agora + restante
+                    self.soneca_fim = soneca_fim
+                    self.soneca_inicio = agora
+                    self._entrar_suspensao(agora)
+                    self.registrar(
+                        "Soneca restaurada até "
+                        f"{soneca_fim:%H:%M}."
+                    )
+
+    def recarregar(self, config: dict) -> None:
+        """Aplica uma configuração recarregada sem reiniciar o programa."""
+        self.som_ativo = bool(config["som_ativo"])
+        self.intervalo_verificacao = float(
+            config["intervalo_verificacao"]
+        )
+        self.acoes_toast = bool(
+            config["acoes_toast"] and config["usar_bandeja"]
+        )
+        self._obter_silencio = lambda: em_horario_silencio(
+            config["horario_silencio"]
+        )
+
+        agora = self._relogio()
+        existentes = {lembrete.chave for lembrete in self.lembretes}
+
+        for lembrete in self.lembretes:
+            dados = config["lembretes"].get(lembrete.chave)
+            if not isinstance(dados, dict):
+                continue
+
+            lembrete.ativo = bool(dados["ativo"])
+            lembrete.nome = dados["nome"].strip()
+            lembrete.titulo = dados["titulo"].strip()
+            lembrete.mensagem = dados["mensagem"].strip()
+            lembrete.intervalo = float(dados["intervalo_segundos"])
+            lembrete.atraso_inicial = float(
+                dados["atraso_inicial_segundos"]
+            )
+            lembrete.notas = tuple(
+                (int(frequencia), int(duracao))
+                for frequencia, duracao in dados["notas"]
+            )
+
+        for chave in LEMBRETES_PADRAO:
+            dados = config["lembretes"][chave]
+            if not dados["ativo"] or chave in existentes:
+                continue
+
+            self.lembretes.append(
+                Lembrete(
+                    nome=dados["nome"].strip(),
+                    titulo=dados["titulo"].strip(),
+                    mensagem=dados["mensagem"].strip(),
+                    notas=tuple(
+                        (int(frequencia), int(duracao))
+                        for frequencia, duracao in dados["notas"]
+                    ),
+                    intervalo=float(dados["intervalo_segundos"]),
+                    atraso_inicial=float(
+                        dados["atraso_inicial_segundos"]
+                    ),
+                    proximo=agora + float(
+                        dados["atraso_inicial_segundos"]
+                    ),
+                    chave=chave,
+                )
+            )
+
+    def _entregar_agora(self, entregas: List[Tuple[Lembrete, bool]]) -> None:
+        if not entregas:
+            return
+
+        if self._entregar_custom is not None:
+            for lembrete, atrasado in entregas:
+                self._entregar_custom(lembrete, atrasado)
+            return
+
+        entregar_lembretes(
+            entregas,
+            som_ativo=self.som_ativo,
+            acoes=ACOES_TOAST if self.acoes_toast else None,
         )
 
     def _entrar_suspensao(self, agora: float) -> None:
@@ -1083,6 +1605,7 @@ class Agendador:
         self.soneca_fim = None
         self.soneca_inicio = None
         self._registrar_evento(evento, duracao_segundos=duracao)
+        self._salvar_estado()
 
     def _atualizar_silencio(self, agora: float) -> None:
         ativo = bool(self._obter_silencio())
@@ -1124,6 +1647,7 @@ class Agendador:
         self.pausa_inicio = agora
         self._entrar_suspensao(agora)
         self._registrar_evento("pausa_iniciada")
+        self._salvar_estado()
         self.registrar("Lembretes pausados. Use o ícone para retomar.")
 
     def retomar(self) -> None:
@@ -1136,6 +1660,7 @@ class Agendador:
         self.pausa_inicio = None
         self._registrar_evento("pausa_encerrada", duracao_segundos=duracao)
         self._encerrar_suspensao(agora)
+        self._salvar_estado()
 
         if self.em_silencio:
             self.registrar(
@@ -1169,6 +1694,7 @@ class Agendador:
         self._registrar_evento(
             "soneca_iniciada", duracao_segundos=round(segundos, 2)
         )
+        self._salvar_estado()
         self.registrar(
             f"Soneca ativada por {formato_intervalo(segundos)}."
         )
@@ -1209,6 +1735,7 @@ class Agendador:
 
     def tick(self) -> List[Lembrete]:
         agora = self._relogio()
+        self._corrigir_salto(agora)
         self._atualizar_silencio(agora)
 
         if self.soneca_ate is not None and agora >= self.soneca_ate:
@@ -1218,9 +1745,17 @@ class Agendador:
 
         if self.suspenso:
             self.tela_cheia_anterior = None
+            self.bloqueado_anterior = None
             return []
 
         tela_cheia = self._obter_tela_cheia()
+        bloqueado = (
+            self.bloqueio_evento
+            if self.bloqueio_evento is not None
+            else self._obter_bloqueado()
+        )
+        adiar = tela_cheia or bloqueado
+        motivo = MOTIVO_BLOQUEIO if bloqueado else MOTIVO_TELA_CHEIA
 
         if tela_cheia and self.tela_cheia_anterior is False:
             self.registrar(
@@ -1231,15 +1766,31 @@ class Agendador:
                 "Tela cheia encerrada: retomando a agenda."
             )
 
+        if bloqueado and self.bloqueado_anterior is False:
+            self.registrar(
+                "Sessão bloqueada: som e notificações serão adiados."
+            )
+        elif not bloqueado and self.bloqueado_anterior is True:
+            self.registrar("Sessão desbloqueada: retomando a agenda.")
+
         self.tela_cheia_anterior = tela_cheia
+        self.bloqueado_anterior = bloqueado
+
+        entregas: List[Tuple[Lembrete, bool]] = []
+
+        def coletar(lembrete: Lembrete, atrasado: bool) -> None:
+            self._registrar_entrega(lembrete, atrasado)
+            entregas.append((lembrete, atrasado))
 
         adiados = processar_tick(
-            self.lembretes, agora, tela_cheia, self._entregar
+            self.lembretes, agora, adiar, coletar, motivo
         )
+
+        self._entregar_agora(entregas)
 
         for lembrete in adiados:
             self.registrar(
-                f"{lembrete.nome}: lembrete adiado durante a tela cheia."
+                f"{lembrete.nome}: lembrete adiado {motivo}."
             )
 
         return adiados
@@ -1271,9 +1822,13 @@ def formato_intervalo(segundos: float) -> str:
 def mostrar_boas_vindas(
     lembretes: List[Lembrete], bandeja_ativa: bool
 ) -> None:
-    """Exibe a notificação inicial, exceto quando há tela cheia."""
+    """Exibe a notificação inicial, exceto quando há tela cheia ou bloqueio."""
     if em_tela_cheia():
         log("Notificação de boas-vindas não exibida (tela cheia).")
+        return
+
+    if sessao_bloqueada():
+        log("Notificação de boas-vindas não exibida (sessão bloqueada).")
         return
 
     resumo = " | ".join(
@@ -1336,6 +1891,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
         return 1
 
+    if not garantir_instancia_unica():
+        print(
+            "Já existe uma instância dos lembretes em execução.",
+            file=sys.stderr,
+        )
+        return 1
+
     if args.teste:
         aplicar_modo_teste(config)
 
@@ -1362,11 +1924,26 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             config["horario_silencio"]
         ),
         historico=criar_historico(config),
+        estado=criar_estado(config),
         atalhos_globais=(
             config["atalhos_globais"] and config["usar_bandeja"]
         ),
         acoes_toast=config["acoes_toast"] and config["usar_bandeja"],
     )
+
+    def recarregar_config() -> None:
+        try:
+            nova = carregar_config(args.config)
+            if args.teste:
+                aplicar_modo_teste(nova)
+            aplicar_cli(nova, args)
+            validar_config(nova)
+        except (OSError, ValueError) as erro:
+            log(f"Não foi possível recarregar a configuração: {erro}")
+            return
+
+        agendador.recarregar(nova)
+        log("Configuração recarregada.")
 
     if args.teste:
         print(
@@ -1382,8 +1959,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             f"a cada {formato_intervalo(lembrete.intervalo)}"
         )
     print(
-        "Em tela cheia, som e notificação ficam pendentes até você "
-        "sair do app."
+        "Em tela cheia ou com o computador bloqueado, som e notificação "
+        "ficam pendentes até você sair do app ou desbloquear."
     )
     if config["usar_bandeja"]:
         print(
@@ -1426,7 +2003,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 executar_sem_bandeja(agendador)
             else:
                 try:
-                    executar_com_bandeja(agendador)
+                    executar_com_bandeja(agendador, recarregar_config)
                 except ErroBandeja as erro:
                     log(
                         f"Não foi possível iniciar a bandeja: {erro}. "
@@ -1439,6 +2016,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             executar_sem_bandeja(agendador)
     except KeyboardInterrupt:
         print("\nEncerrado. Até logo!")
+    finally:
+        encerrar_notificador()
 
     return 0
 
