@@ -1462,6 +1462,7 @@ class Agendador:
             return
 
         agora = self._relogio()
+        agora_wall = datetime.now()
         decorrido = 0.0
         quando = dados.get("quando")
 
@@ -1469,22 +1470,16 @@ class Agendador:
             try:
                 salvo = datetime.fromisoformat(quando)
                 decorrido = max(
-                    0.0, (datetime.now() - salvo).total_seconds()
+                    0.0, (agora_wall - salvo).total_seconds()
                 )
             except ValueError:
                 decorrido = 0.0
 
-        if decorrido:
-            self.deslocar_agenda(decorrido)
-
-        if dados.get("pausado"):
-            self.pausado = True
-            self.pausa_inicio = agora
-            self._entrar_suspensao(agora)
-            self.registrar("Pausa restaurada do estado salvo.")
-            return
-
+        pausado = bool(dados.get("pausado"))
+        soneca_fim = None
+        restante = 0.0
         fim = dados.get("soneca_fim")
+
         if isinstance(fim, str):
             try:
                 soneca_fim = datetime.fromisoformat(fim)
@@ -1492,16 +1487,29 @@ class Agendador:
                 soneca_fim = None
 
             if soneca_fim is not None:
-                restante = (soneca_fim - datetime.now()).total_seconds()
-                if restante > 0:
-                    self.soneca_ate = agora + restante
-                    self.soneca_fim = soneca_fim
-                    self.soneca_inicio = agora
-                    self._entrar_suspensao(agora)
-                    self.registrar(
-                        "Soneca restaurada até "
-                        f"{soneca_fim:%H:%M}."
-                    )
+                restante = (soneca_fim - agora_wall).total_seconds()
+
+        # Só desloca a agenda quando havia uma suspensão ativa. Um estado
+        # antigo de pausa/soneca já encerrada não pode adiar os lembretes.
+        if decorrido and (pausado or restante > 0):
+            self.deslocar_agenda(decorrido)
+
+        if pausado:
+            self.pausado = True
+            self.pausa_inicio = agora
+            self._entrar_suspensao(agora)
+            self.registrar("Pausa restaurada do estado salvo.")
+            return
+
+        if soneca_fim is not None and restante > 0:
+            self.soneca_ate = agora + restante
+            self.soneca_fim = soneca_fim
+            self.soneca_inicio = agora
+            self._entrar_suspensao(agora)
+            self.registrar(
+                "Soneca restaurada até "
+                f"{soneca_fim:%H:%M}."
+            )
 
     def recarregar(self, config: dict) -> None:
         """Aplica uma configuração recarregada sem reiniciar o programa."""
